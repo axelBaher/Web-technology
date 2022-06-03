@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <script src="../JS/lab4_scripts.js"></script>
+    <title>Список вакансий</title>
+    <a name="top"></a>
+
+    <script>
+
+        function loadXMLDoc(filename) {
+            if (window.ActiveXObject)
+                xhttp = new ActiveXObject("Msxml2.XMLHTTP");//создаём объект XMLHttpRequest
+            else 
+                xhttp = new XMLHttpRequest();
+
+            //отправляем запрос на сервер
+            xhttp.open("GET", filename, false);
+            xhttp.send();
+
+            return xhttp.responseXML;//получаем с сервера запрошенные данные в формате XML
+        }
+
+        function displayResult() {
+            let vacancies = loadXMLDoc("../vacancies.xml");//создаём новый объект XSLTProcessor и импортируем в него XSL файл
+            let style_table = loadXMLDoc("../style_table.xsl");
+            let style_inline = loadXMLDoc("../style_inline.xsl");
+            if (window.ActiveXObject || xhttp.responseType == "msxml-document")//если браузер - IE
+            {
+                //используем метод transformNode(), чтобы применить таблицу стилей XSL к XML документу
+                exT = vacancies.transformNode(style_table);
+                exI = vacancies.transformNode(style_inline);
+                //передаем преобразованный XML документ в заданный элемент
+                document.getElementById("vacancies_table").innerHTML = exT;
+                document.getElementById("vacancies_inline").innerHTML = exI;
+            }
+            else if (document.implementation && document.implementation.createDocument)//если другие браузеры
+            {
+                //создаем новый объект XSLTProcessor
+                let xsltProcessorT = new XSLTProcessor();
+                let xsltProcessorI = new XSLTProcessor();
+                //импортируем в него XSL файл
+                xsltProcessorT.importStylesheet(style_table);
+                xsltProcessorI.importStylesheet(style_inline);
+                //Используем метод transformToFragment(), чтобы применить таблицу стилей XSL к XML документу
+                let resultDocumentT = xsltProcessorT.transformToFragment(vacancies, document);
+                let resultDocumentI = xsltProcessorI.transformToFragment(vacancies, document);
+                //передаем преобразованный XML документ в заданный элемент
+                document.getElementById("vacancies_table").appendChild(resultDocumentT);
+                document.getElementById("vacancies_inline").appendChild(resultDocumentI);
+            }
+        }
+
+    </script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #example table {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        #example table td {
+            padding: 10px;
+        }
+    </style>
+
+</head>
+
+<body onload="displayResult()">
+    <header>
+        <a href="index.html"> <img src="../img/header_logo.jpg" alt="Большие данные Bit Data"> </a>
+    </header>
+    <nav>
+        <a href="index.html">Главная страница</a>
+        <a href="html5.html">Страница с HTML5</a>
+        <a href="sources.html">Использованные источники</a>
+        <a href="script.html">Скрипт JS</a>
+        <a href="form.html">Регистрация на курс</a>
+        <a href="lab6.php">Библиотека</a>
+        <a href="final_step.html">Список вакансий</a>
+    </nav>
+
+    <div id="vacancies_table"></div>
+    <br>
+    <div id="vacancies_inline"></div>
+</body>
+
+<footer>
+    <a href="#top">Наверх</a>
+</footer>
+
+</html>

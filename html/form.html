@@ -1,0 +1,133 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <title>Регистрация на курс</title>
+    <a name="top"></a>
+    <script type="text/javascript" src="../JS/lab4_scripts.js"></script>
+    <script type="text/javascript" src="../JS/submit_check.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <a href="index.html"> <img src="../img/header_logo.jpg" alt="Большие данные Bit Data"> </a>
+    </header>
+    <nav>
+        <a href="index.html">Главная страница</a>
+        <a href="html5.html">Страница с HTML5</a>
+        <a href="sources.html">Использованные источники</a>
+        <a href="script.html">Скрипт JS</a>
+        <a href="form.html">Регистрация на курс</a>
+        <a href="lab6.php">Библиотека</a>
+        <a href="final_step.html">Список вакансий</a>
+    </nav>
+    <div id="time_label_div">
+        <label id="time_label" onmouseover="time()" onmouseout="timer_reset()"> Узнать текущее время</label>
+    </div>
+    <article>
+        <h1>Для записи на курс, заполните форму</h1><br>
+        <form method="GET" action="../cgi-bin/form.py" id="form_lab5">
+            <table id="form_table">
+                <tbody>
+                    <tr>
+                        <th>Имя </th>
+                        <td id="required">*</td>
+                        <td><input type=text id="form_name" name=name pattern="^[A-Za-zА-Яа-яЁё]+$" required></td>
+                    </tr>
+                    <tr>
+                        <th>Фамилия </th>
+                        <td id="required">*</td>
+                        <td><input type=text id="form_surname" name=surname pattern="^[A-Za-zА-Яа-яЁё]+$" required></td>
+                    </tr>
+                    <tr>
+                        <th>Номер телефона (без кода страны) </th>
+                        <td id="required">*</td>
+                        <td><input type=tel id="form_num" name=phone_number placeholder="123-123-12-12"
+                                pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" required></td>
+                    </tr>
+                    <tr>
+                        <th>Email </th>
+                        <td id="required"></td>
+                        <td><input type=email id="form_email" name=email></td>
+                    </tr>
+                    <tr>
+                        <th>Файл с очень важной информацией </th>
+                        <td id="required">*</td>
+                        <td><input type=file id="form_file" name=file required></td>
+                    </tr>
+                    <tr>
+                        <th>Уровень подготовки </th>
+                        <td id="required">*</td>
+                        <td>
+                            <table>
+                                <td><input type=radio checked name=level value=low>Начальный</td>
+                                <td><input type=radio name=level value=medium>Средний</td>
+                                <td><input type=radio name=level value=high>Высокий</td>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Свободные дни </th>
+                        <td id="required">*</td>
+                        <td>
+                            <table id="form_days">
+                                <tbody>
+                                    <tr>
+                                        <td><input type=checkbox id="days_monday" name=days value=monday>Понедельник</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type=checkbox id="days_tuesday" name=days value=tuesday>Вторник</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type=checkbox id="days_wednesday" name=days value=wednesday>Среда</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type=checkbox id="days_thursday" name=days value=thursday>Четверг</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type=checkbox id="days_friday" name=days value=friday>Пятница</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type=checkbox id="days_saturday" name=days value=saturday>Суббота</td>
+                                    </tr>
+                                </tbody>
+                    </tr>
+            </table>
+            </td>
+            </tr>
+            <tr>
+                <th>Откуда вы о нас узнали </th>
+                <td id="required"></td>
+                <td>
+                    <select name="how_hear_about_us">
+                        <option>------------------------------</option>
+                        <option>От друга</option>
+                        <option>Из интернета</option>
+                        <option>От коллег</option>
+                        <option>От другого вашего ученика</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Дополнительная информация </th>
+                <td id="required"></td>
+                <td><textarea id="add_info_textarea" name=add_info type="text" cols="45" rows="5"
+                        maxlength="200"></textarea></td>
+            </tr>
+            <tr id="tr_submit_btn">
+                <td colspan="3"><button type="submit" onclick="check_fields()" class="btn" id="submit_button">Подтвердить форму</button></td>
+            </tr>
+            </tbody>
+            </table>
+        </form>
+    </article>
+    <footer>
+        <a href="#top">Наверх</a>
+    </footer>
+</body>
+
+</html>
